@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
         string body = string("this is the FIRST message body.");
 
         // add an outgoing message to the queue
-        stomp_client->send(notifications_topic, headers, body);
+        stomp_client->send(notifications_send_topic, headers, body);
 
         // send another one right away
         binbody bb;
@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
         bb << '\0';
         bb << "with a NULL in it.";
         string body2 = string("this is the SECOND message.");
-        stomp_client->send(notifications_topic, headers, bb);
+        stomp_client->send(notifications_send_topic, headers, bb);
         sleep(1);
         // add some more binary content in the body
         binbody bb2;
@@ -100,14 +100,14 @@ int main(int argc, char *argv[]) {
         bb2 << "with";
         bb2 << '\0';
         bb2 << "TWO NULLs in it.";
-        stomp_client->send(notifications_topic, headers, bb2);
+        stomp_client->send(notifications_send_topic, headers, bb2);
         sleep(2);
         // now some stress test (100 frames)
         STOMP::hdrmap headers2;
         for (int i = 0;  i < 100; i++) {
         	cout << "Sending stress frame " << i << endl;
         	headers2["count"] = to_string<int>(i);
-        	stomp_client->send(notifications_topic, headers2, "");
+        	stomp_client->send(notifications_send_topic, headers2, "");
         };
         sleep(2);
         stomp_client->stop();

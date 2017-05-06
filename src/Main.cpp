@@ -59,8 +59,8 @@ bool subscription_callback(STOMP::Frame& _frame) {
 // -----------------------------------------
 int main(int argc, char *argv[]) {
 // -----------------------------------------
-    string  stomp_host = "http://yangyinetwork.asuscomm.com";
-    int     stomp_port = 83;
+    string  stomp_host = "http://52.78.111.146";
+    int     stomp_port = 80;
 
     cout << "Start!!@#!#$@$#!@" << endl;
 

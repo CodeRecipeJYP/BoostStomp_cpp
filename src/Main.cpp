@@ -38,7 +38,8 @@ using namespace STOMP;
 using namespace std;
 
 static BoostStomp*  stomp_client;
-static string       notifications_topic = "/queue/zwave/monitor";
+static string       notifications_receive_topic = "/topic/command/general";
+static string       notifications_send_topic = "/app/general/command";
 
 // -------------------------------------------------------
 // a callback for any STOMP Frames in subscribed channels
@@ -58,8 +59,10 @@ bool subscription_callback(STOMP::Frame& _frame) {
 // -----------------------------------------
 int main(int argc, char *argv[]) {
 // -----------------------------------------
-    string  stomp_host = "localhost";
-    int     stomp_port = 61613;
+    string  stomp_host = "http://yangyinetwork.asuscomm.com";
+    int     stomp_port = 83;
+
+    cout << "Start!!@#!#$@$#!@" << endl;
 
     try {
     	// initiate a new BoostStomp client
@@ -69,7 +72,8 @@ int main(int argc, char *argv[]) {
         stomp_client->start();
 
         // subscribe to a channel
-        stomp_client->subscribe(notifications_topic, (STOMP::pfnOnStompMessage_t) &subscription_callback);
+        stomp_client->subscribe(notifications_send_topic, (STOMP::pfnOnStompMessage_t) &subscription_callback);
+        stomp_client->subscribe(notifications_receive_topic, (STOMP::pfnOnStompMessage_t) &subscription_callback);
 
         // construct a headermap
         STOMP::hdrmap headers;

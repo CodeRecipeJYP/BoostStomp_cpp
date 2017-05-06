@@ -72,17 +72,17 @@ int main(int argc, char *argv[]) {
         stomp_client->start();
 
         // subscribe to a channel
-        stomp_client->subscribe(notifications_send_topic, (STOMP::pfnOnStompMessage_t) &subscription_callback);
-        stomp_client->subscribe(notifications_receive_topic, (STOMP::pfnOnStompMessage_t) &subscription_callback);
-
-        // construct a headermap
+//        stomp_client->subscribe(notifications_send_topic, (STOMP::pfnOnStompMessage_t) &subscription_callback);
+//        stomp_client->subscribe(notifications_receive_topic, (STOMP::pfnOnStompMessage_t) &subscription_callback);
+//
+//        // construct a headermap
         STOMP::hdrmap headers;
         headers["simpMessageType"] = string("MESSAGE");
         headers["stompCommand"] = string("SEND");
-//        headers["header3"] = string("value3");
+////        headers["header3"] = string("value3");
         string body = string("this is the FIRST message body.");
-
-        // add an outgoing message to the queue
+//
+//        // add an outgoing message to the queue
         stomp_client->send(notifications_send_topic, headers, body);
 //
 //        // send another one right away

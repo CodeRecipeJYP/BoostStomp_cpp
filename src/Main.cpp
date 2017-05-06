@@ -59,7 +59,7 @@ bool subscription_callback(STOMP::Frame& _frame) {
 // -----------------------------------------
 int main(int argc, char *argv[]) {
 // -----------------------------------------
-    string  stomp_host = "http://52.78.111.146";
+    string  stomp_host = "52.78.111.146";
     int     stomp_port = 80;
 
     cout << "Start!!@#!#$@$#!@" << endl;
@@ -77,39 +77,39 @@ int main(int argc, char *argv[]) {
 
         // construct a headermap
         STOMP::hdrmap headers;
-        headers["header1"] = string("value1");
-        headers["header2:withcolon"] = string("value2");
-        headers["header3"] = string("value3");
+        headers["simpMessageType"] = string("MESSAGE");
+        headers["stompCommand"] = string("SEND");
+//        headers["header3"] = string("value3");
         string body = string("this is the FIRST message body.");
 
         // add an outgoing message to the queue
         stomp_client->send(notifications_send_topic, headers, body);
-
-        // send another one right away
-        binbody bb;
-        bb << "this is the SECOND message.";
-        bb << '\0';
-        bb << "with a NULL in it.";
-        string body2 = string("this is the SECOND message.");
-        stomp_client->send(notifications_send_topic, headers, bb);
-        sleep(1);
-        // add some more binary content in the body
-        binbody bb2;
-        bb2 << "this is the THIRD message.";
-        bb2 << '\0';
-        bb2 << "with";
-        bb2 << '\0';
-        bb2 << "TWO NULLs in it.";
-        stomp_client->send(notifications_send_topic, headers, bb2);
-        sleep(2);
-        // now some stress test (100 frames)
-        STOMP::hdrmap headers2;
-        for (int i = 0;  i < 100; i++) {
-        	cout << "Sending stress frame " << i << endl;
-        	headers2["count"] = to_string<int>(i);
-        	stomp_client->send(notifications_send_topic, headers2, "");
-        };
-        sleep(2);
+//
+//        // send another one right away
+//        binbody bb;
+//        bb << "this is the SECOND message.";
+//        bb << '\0';
+//        bb << "with a NULL in it.";
+//        string body2 = string("this is the SECOND message.");
+//        stomp_client->send(notifications_send_topic, headers, bb);
+//        sleep(1);
+//        // add some more binary content in the body
+//        binbody bb2;
+//        bb2 << "this is the THIRD message.";
+//        bb2 << '\0';
+//        bb2 << "with";
+//        bb2 << '\0';
+//        bb2 << "TWO NULLs in it.";
+//        stomp_client->send(notifications_send_topic, headers, bb2);
+//        sleep(2);
+//        // now some stress test (100 frames)
+//        STOMP::hdrmap headers2;
+//        for (int i = 0;  i < 100; i++) {
+//        	cout << "Sending stress frame " << i << endl;
+//        	headers2["count"] = to_string<int>(i);
+//        	stomp_client->send(notifications_send_topic, headers2, "");
+//        };
+        sleep(20);
         stomp_client->stop();
         delete stomp_client;
     } 
